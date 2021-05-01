@@ -1,0 +1,47 @@
+﻿
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-image: url('images/starry-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container {
+    height: 100%;
+    align-content: center;
+}
+
+.card {
+    height: 370px;
+    margin-top: 100px;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.card-header {
+    color: white;
+}
+
+.card-header h3 {
+    justify-content: center;
+}
+
+.input-group-prepend span {
+    width: 50px;
+    background-color: #4FFFB0;
+    color: black;
+    border: 0 !important;
+}
+
+.login_btn {
+    color: black;
+    background-color: #4FFFB0;
+    width: 100px;
+}
+
+.card-footer a {
+    color: white;
+}

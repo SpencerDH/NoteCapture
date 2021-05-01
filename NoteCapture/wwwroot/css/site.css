@@ -1,0 +1,171 @@
+﻿/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template/simple-sidebar)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    /* height: 100%; */
+    background-color: #110011;
+    color: #DCDCDC;
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+
+    #sidebar-wrapper .sidebar-heading {
+        padding: 0.875rem 1.25rem;
+        font-size: 1.2rem;
+    }
+
+    #sidebar-wrapper .list-group {
+        width: 15rem;
+    }
+
+    #sidebar-wrapper .list-group-item-user-profile {
+        background-color: #110011;
+        color: #DCDCDC;
+    }
+
+    #sidebar-wrapper .search-bar {
+        background-color: #888888;
+        border-radius: 45px;
+        outline: 0;
+        border: 0;
+        height: 50px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        width: 90%;
+    }
+
+    #sidebar-wrapper .search-icon {
+        border-radius: 50%;
+        color: #F5F5F5;
+        justify-content: center;
+    }
+
+    #sidebar-wrapper .list-group-item-search-bar {
+        background: none;
+        line-height: 50px;
+        padding-left: 10px;
+        border: 0;
+        outline: 0;
+        color: #F5F5F5;
+    }
+
+        #sidebar-wrapper .list-group-item-search-bar::placeholder {
+            color: #F5F5F5;
+        }
+
+    #sidebar-wrapper .new-note {
+        background-color: #228B22;
+        border-radius: 45px;
+        outline: 0;
+        border: 0;
+        height: 50px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        width: 90%;
+    }
+
+    #sidebar-wrapper .note-create-invitation {
+        background: none;
+        line-height: 40px;
+        padding-left: 10px;
+        border: 0;
+        outline: 0;
+        color: white;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    #sidebar-wrapper .note-icon {
+        border-radius: 50%;
+        color: #4CBB17;
+        justify-content: center;
+    }
+
+    #sidebar-wrapper .list-group-item-action {
+        background-color: #110011;
+        color: #DCDCDC;
+    }
+
+        #sidebar-wrapper .list-group-item-action:hover {
+            background-color: #505050;
+        }
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+/*
+    Notes Index Page
+*/
+
+.notes-container {
+    display: flex;
+}
+
+.col1 {
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.col2 {
+    align-content: center;
+    justify-content: center;
+    margin-top: 10vh;
+}
+
+.column-panel {
+    display: flex;
+    margin-top: 10px;
+}
+
+.notes-panel {
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+    border-right: 1px solid black;
+    overflow-y: scroll;
+}
+
+.text-editor-panel {
+    flex: 1;
+    padding: 1rem;
+    height: 100%;
+}
+
+.note-card {
+    min-height: 150px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}

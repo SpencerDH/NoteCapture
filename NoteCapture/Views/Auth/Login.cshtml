@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "_AuthLayout.cshtml";
+}
+
+<div class="d-flex justify-content-center h-100">
+    <div class="card">
+        <div class="card-header">
+            <h3>Login</h3>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Auth" asp-action="Login" method="post">
+                <!-- Login form begins -->
+                <div class="input-group form-group"> <!-- Username input begins -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="UserName" placeholder="username" />
+                </div> <!-- Username input ends -->
+                <div class="input-group form-group"> <!-- Password input begins -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                    <input type="password" class="form-control" name="Password" placeholder="password" />
+                </div> <!-- Password input ends -->
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn float-right login_btn" />
+                </div>
+            </form> <!-- Login form ends -->
+        </div>
+        <div class="card-footer">
+            <!-- Link to registration page -->
+            <a asp-action="Register">No account with us yet? Register here!</a>
+        </div>
+    </div>
+</div>
+
+
+@*
+    <table>
+                    <tr>
+                        <td>Enter Username: </td>
+                        <td>@Html.TextBox("Username")</td>
+                    </tr>
+                    <tr>
+                        <td>Enter Password: </td>
+                        <td>@Html.Password("Password")</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input class="btn btn-primary" type="submit" value="Submit" /></td>
+                    </tr>
+                </table>
+*@
