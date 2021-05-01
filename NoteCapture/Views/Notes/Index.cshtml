@@ -20,12 +20,8 @@
             @foreach (var note in Model)
             {
                 <div class="card note-card card-click" id="@note.ID">
-                    <div class="card-header">
-                        @Html.Raw(note.NoteTitle)
-                    </div>
-                    <div class="card-body">
-                        @Html.Raw(note.NoteText)
-                    </div>
+                    <div class="card-header">@note.NoteTitle</div>
+                    <div class="card-body">@Html.Raw(note.NoteText)</div>
                 </div>
             }
         </div>
@@ -53,8 +49,13 @@
 <script>
     $(document).ready(function () {
         $(".card-click").click(function () {
+            // Add a border to the card that's clicked
+            $("div.card").css("border", "0px");
+            $(this).css("border", "1px solid black");
+
+            // Extract the content that needs to be pasted into the edit form
             var noteTitle = $(this).children("div.card-header").text()
-            var noteText = $(this).children("div.card-body").text();
+            var noteText = $(this).children("div.card-body").html();
             var noteID = $(this).attr("id");
 
             $("#ID").val(noteID);
