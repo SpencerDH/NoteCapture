@@ -20,6 +20,7 @@ namespace NoteCapture.Data
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<UserRegistrationModel> UserRegistrationModels { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         // Create models
         protected override void OnModelCreating(ModelBuilder builder)

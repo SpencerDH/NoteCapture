@@ -31,6 +31,7 @@ namespace NoteCapture.Controllers
 
             var notesList = await _context.Notes
                 .Where(n => n.AppUserId == currentUserId)
+                .Where(n => n.InTrash == false)
                 .ToListAsync();
 
             // Initialize NoteDisplayHelper object
@@ -72,6 +73,7 @@ namespace NoteCapture.Controllers
             // Get the note corresponding to the ID passed to the controller from the database
             var note = await _context.Notes
                 .Where(n => n.AppUserId == currentUserId)
+                .Where(n => n.InTrash == false)
                 .FirstOrDefaultAsync(n => n.ID == viewModelID);
 
             // If the note doesn't exist, return the user to the Notes index
@@ -85,6 +87,56 @@ namespace NoteCapture.Controllers
             note.NoteText = viewModelNoteText;
             _context.Update(note);
             await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Notes");
+        }
+
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            // Get current user ID, and select only notes associated with that user
+            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUserId = currentUser.Id;
+
+            var notesList = await _context.Notes
+                .Where(n => n.AppUserId == currentUserId)
+                .Where(n => n.NoteText.Contains(searchTerm) || n.NoteTitle.Contains(searchTerm))
+                .Where(n => n.InTrash == false)
+                .ToListAsync();
+
+            return View(notesList);
+        }
+
+        public async Task<IActionResult> TrashIndex()
+        {
+            // Get current user ID, and select only notes associated with that user
+            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUserId = currentUser.Id;
+
+            var notesList = await _context.Notes
+                .Where(n => n.AppUserId == currentUserId)
+                .Where(n => n.InTrash == true)
+                .ToListAsync();
+
+            return View(notesList);
+        }
+
+        public async Task<IActionResult> MoveToTrash(int NoteTrashID)
+        {
+            // Get current user ID, and select only notes associated with that user
+            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUserId = currentUser.Id;
+
+            var note = await _context.Notes
+                .Where(n => n.AppUserId == currentUserId)
+                .Where(n => n.InTrash == false)
+                .FirstOrDefaultAsync(n => n.ID == NoteTrashID);
+
+            if (note != null)
+            {
+                note.InTrash = true;
+                _context.Update(note);
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToAction("Index", "Notes");
         }

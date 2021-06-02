@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@model List<NoteCapture.Models.Note>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 col1">
+            <nav class="navbar navbar-light bg-light">
+                <ul class="navbar-nav mr-auto">
+                    <li class="trash-header"><i class="fas fa-trash"></i> Trash</li>
+                    <li class="nav-item active btn btn-primary">Empty trash</li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Filter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sort</a>
+                    </li>
+                </ul>
+            </nav>
+
+            @if (Model.Count > 0)
+            {
+                foreach (var note in Model)
+                {
+                    <div class="card note-card card-click" id="@note.ID">
+                        <div class="card-header">@note.NoteTitle</div>
+                        <div class="card-body">@Html.Raw(note.NoteText)</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="empty-trash">The trash is currently empty</p>
+            }
+        </div>
+
+        <div class="col-6 col2">
+            @if (Model.Count > 0)
+            {
+                <form asp-controller="Notes" asp-action="Edit" method="post">
+                    <input type="hidden" id="ID" name="ID" />
+                    <div class="input-group form-group">
+                        <input class="name-should-be-better" id="NoteTitle" name="NoteTitle" type="text" placeholder="Title" />
+                    </div>
+                    <div class="input-group form-group">
+                        <textarea id="NoteText" name="NoteText" rows="20" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary">Notes in the trash cannot be edited</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.tiny.cloud/1/sdhg5pggurg8ldhp6e6hdqx8eragpccy99awa61ejtm0tll8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    $(document).ready(function () {
+        $(".card-click").click(function () {
+            // Add a border to the card that's clicked
+            $("div.card").css("border", "0px");
+            $(this).css("border", "1px solid black");
+
+            // Extract the content that needs to be passed into the edit form
+            var noteTitle = $(this).children("div.card-header").text()
+            var noteText = $(this).children("div.card-body").html();
+            var noteID = $(this).attr("id");
+
+            // Set the values in the edit form
+            $("#ID").val(noteID);
+            $("#NoteTitle").val(noteTitle);
+            tinymce.activeEditor.setContent(noteText);
+        });
+    });
+</script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+    });
+</script>

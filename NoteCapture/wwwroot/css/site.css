@@ -14,6 +14,7 @@
     color: #DCDCDC;
     min-height: 100vh;
     margin-left: -15rem;
+    margin-right: 0px;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
@@ -109,6 +110,25 @@
     margin-left: 0;
 }
 
+/* Tags Panel */
+#tagsPanel {
+    height: 100vh;
+    width: 0px;
+    overflow-x: hidden;
+    margin-left: 0px;
+    position: fixed;
+    z-index: 1;
+    background-color: #f5f5f5;
+    transition: 0.5s;
+}
+
+#tags-search-input {
+    width: 250px;
+    height: 45px;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
 
 
 @media (min-width: 768px) {
@@ -129,6 +149,17 @@
 /*
     Notes Index Page
 */
+
+.navbar-nav {
+    flex-direction: row;
+    justify-content: right !important;
+}
+
+
+.navbar-nav li {
+    margin-right: 8px;
+    justify-content: right;
+}
 
 .notes-container {
     display: flex;

@@ -4,15 +4,42 @@
 
 @model List<NoteCapture.Models.Note>
 
+<style>
+    .filter-form-popup {
+        display: none;
+        position: fixed;
+        border: 3px solid black;
+        top: 0;
+        z-index: 999;
+    }
+
+    .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-6 col1">
             <nav class="navbar navbar-light bg-light">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Filter</a>
+                        <a id="filterLink" class="nav-link" href="#" onclick="openFilterForm(); return false;">Filter</a>
                     </li>
-                    <li class="nav-item">
+                    <div class="filter-form-popup" id="filterForm">
+                        <form class="form-container">
+                            <select name="tags" id="tags">
+                                <option value="tag1">Tag 1</option>
+                                <option value="tag2">Tag 2</option>
+                            </select>
+
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
+                        <button class="btn btn-danger" onclick="closeFilterForm()">Close</button>
+                    </div>
+                    <li class="nav-item active">
                         <a class="nav-link" href="#">Sort</a>
                     </li>
                 </ul>
@@ -39,12 +66,25 @@
                     <input type="submit" class="btn btn-primary" value="Submit" />
                 </div>
             </form>
+
+            <form asp-controller="Notes" asp-action="MoveToTrash" method="post">
+                <input type="hidden" id="NoteTrashID" name="NoteTrashID" />
+                <button type="submit" style="justify-content: center;" class="btn btn-danger trash-button"><i class="fas fa-trash"></i> Move to Trash?</button>
+            </form>
         </div>
     </div>
 </div>
 
 
+<script>
+    function openFilterForm() {
+        document.getElementById("filterForm").style.display = "block";
+    }
 
+    function closeFilterForm() {
+        document.getElementById("filterForm").style.display = "none";
+    }
+</script>
 <script src="https://cdn.tiny.cloud/1/sdhg5pggurg8ldhp6e6hdqx8eragpccy99awa61ejtm0tll8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     $(document).ready(function () {
@@ -53,12 +93,14 @@
             $("div.card").css("border", "0px");
             $(this).css("border", "1px solid black");
 
-            // Extract the content that needs to be pasted into the edit form
+            // Extract the content that needs to be passed into the edit form
             var noteTitle = $(this).children("div.card-header").text()
             var noteText = $(this).children("div.card-body").html();
             var noteID = $(this).attr("id");
 
+            // Set the values in the edit form and the trash form
             $("#ID").val(noteID);
+            $("#NoteTrashID").val(noteID);
             $("#NoteTitle").val(noteTitle);
             tinymce.activeEditor.setContent(noteText);
         });

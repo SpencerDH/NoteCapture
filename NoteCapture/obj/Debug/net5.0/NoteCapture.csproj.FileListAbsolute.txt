@@ -91,3 +91,5 @@ C:\Users\spenc\WebDev\NoteCapture\NoteCapture\obj\Debug\net5.0\Razor\Views\Auth\
 C:\Users\spenc\WebDev\NoteCapture\NoteCapture\obj\Debug\net5.0\Razor\Views\Auth\SuccessRegistration.cshtml.g.cs
 C:\Users\spenc\WebDev\NoteCapture\NoteCapture\bin\Debug\net5.0\libman.json
 C:\Users\spenc\WebDev\NoteCapture\NoteCapture\obj\Debug\net5.0\Razor\Views\Notes\Index.cshtml.g.cs
+C:\Users\spenc\WebDev\NoteCapture\NoteCapture\obj\Debug\net5.0\Razor\Views\Notes\Search.cshtml.g.cs
+C:\Users\spenc\WebDev\NoteCapture\NoteCapture\obj\Debug\net5.0\Razor\Views\Notes\TrashIndex.cshtml.g.cs
