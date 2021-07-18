@@ -3,6 +3,10 @@
 }
 
 @model List<NoteCapture.Models.Note>
+@{ 
+    Note firstNote = Model.First();
+    int firstNoteID = firstNote.ID;
+}
 
 <style>
     .filter-form-popup {
@@ -54,23 +58,33 @@
         </div>
 
         <div class="col-6 col2">
-            <form asp-controller="Notes" asp-action="Edit" method="post">
+            <div class="note-header">
+                <p class="save-information">Last edited July 12th, 2021</p>
+                <button type="button">...</button>
+            </div>
+            <form id="editorForm" style="height: 100vh;" asp-controller="Notes" asp-action="Edit" method="post">
                 <input type="hidden" id="ID" name="ID" />
                 <div class="input-group form-group">
                     <input class="name-should-be-better" id="NoteTitle" name="NoteTitle" type="text" placeholder="Title" />
                 </div>
                 <div class="input-group form-group">
-                    <textarea id="NoteText" name="NoteText" rows="20" class="form-control"></textarea>
+                    <textarea id="NoteText" style="height: 90%;" name="NoteText" class="form-control"></textarea>
                 </div>
+                <!--
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Submit" />
                 </div>
+                -->
             </form>
 
+            <button class="btn btn-primary" id="ajax-test-button">AJAX Test</button>
+
+            <!--
             <form asp-controller="Notes" asp-action="MoveToTrash" method="post">
                 <input type="hidden" id="NoteTrashID" name="NoteTrashID" />
                 <button type="submit" style="justify-content: center;" class="btn btn-danger trash-button"><i class="fas fa-trash"></i> Move to Trash?</button>
             </form>
+            -->
         </div>
     </div>
 </div>
@@ -87,7 +101,15 @@
 </script>
 <script src="https://cdn.tiny.cloud/1/sdhg5pggurg8ldhp6e6hdqx8eragpccy99awa61ejtm0tll8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
+    tinymce.init({
+        selector: 'textarea',
+        height: "500",
+        skin: "outside"
+    });
+</script>
+<script>
     $(document).ready(function () {
+        // Function to set editor values by whatever note is selected.
         $(".card-click").click(function () {
             // Add a border to the card that's clicked
             $("div.card").css("border", "0px");
@@ -104,15 +126,50 @@
             $("#NoteTitle").val(noteTitle);
             tinymce.activeEditor.setContent(noteText);
         });
-    });
-</script>
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
+
+        // Function to submit the AJAX test button
+        $("button#ajax-test-button").click(function () {
+            // Get the three variable values for NoteEditViewModel, and pass as a JSON object to the controller
+            var noteID = $("input#ID").val();
+            var noteText = tinymce.activeEditor.getContent();
+            var noteTitle = $("#NoteTitle").val();
+
+            // Create JSON object with values corresponding to those of NoteEditViewModel
+            var noteEdit = {
+                ID : noteID,
+                NoteText : noteText,
+                NoteTitle: noteTitle
+            };
+
+            // Now pass to the controller with AJAX
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AjaxTest", "Notes")",
+                dataType: "json",
+                // contentType: "application/json; charset=utf-8",
+                data: noteEdit,
+                success: function (msg) {
+                    updateNote(msg.noteID, msg.noteTitle, msg.noteText);
+                },
+                error: function () {
+                    console.log("Error has occurred");
+                }
+            });
+        });
+
+        // Function to update a note asynchronously after it's been updated
+        function updateNote(ID, noteTitle, noteText) {
+            console.log("card#" + ID);
+            var noteCard = $("#" + ID);
+            console.log(noteCard);
+            noteCard.children("div.card-header").text(noteTitle);
+            noteCard.children("div.card-body").html(noteText);
+        }
+
+        // Automatically select the first card when document loads
+        // var firstCard = $("")
+        var firstNoteID = @firstNoteID;
+        $("#" + firstNoteID).click();
+
     });
 </script>

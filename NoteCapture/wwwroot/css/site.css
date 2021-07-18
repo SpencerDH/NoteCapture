@@ -150,6 +150,10 @@
     Notes Index Page
 */
 
+.row {
+    padding: 0.25rem;
+}
+
 .navbar-nav {
     flex-direction: row;
     justify-content: right !important;
@@ -173,7 +177,7 @@
 .col2 {
     align-content: center;
     justify-content: center;
-    margin-top: 10vh;
+    padding: 0;
 }
 
 .column-panel {
@@ -204,4 +208,30 @@
 
 .card-body {
     overflow-y: auto;
+}
+
+.tox-tinymce {
+    width: 100%;
+}
+
+#NoteTitle {
+    margin-top: 50px;
+    width: 100%;
+    border: hidden;
+    outline: 0;
+    height: 60px;
+    font-size: 30px;
+}
+
+.note-header {
+    margin: 20px;
+}
+
+p.save-information {
+    color: darkgray;
+    float: left;
+}
+
+button.note-actions {
+    float: right;
 }
